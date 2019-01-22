@@ -1,0 +1,17 @@
+{
+  "name": "test-task-luxost",
+  "version": "1.0.0",
+  "description": "https://github.com/revkov/NODE.JS.CSV.TEST",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
+  },
+  "author": "Perov Sergey",
+  "license": "ISC",
+  "dependencies": {
+    "esm": "^3.1.1",
+    "express": "^4.16.4",
+    "object-path": "^0.11.4"
+  }
+}
