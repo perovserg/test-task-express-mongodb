@@ -10,8 +10,13 @@
   "author": "Perov Sergey",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.2.0",
     "esm": "^3.1.1",
     "express": "^4.16.4",
-    "object-path": "^0.11.4"
+    "express-async-errors": "^3.1.1",
+    "moment": "^2.24.0",
+    "object-path": "^0.11.4",
+    "winston": "^3.1.0"
   }
 }
