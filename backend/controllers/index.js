@@ -50,6 +50,7 @@ export const importCSV = (req, res) => {
     return res.json({message: 'import is started!'});
 };
 
+
 export const usedForms = async (req, res) => {
 
 
@@ -79,3 +80,42 @@ export const usedForms = async (req, res) => {
     });
 };
 
+
+export const unfinishedForms = async (req, res) => {
+
+
+    const allStarts = await StatisticsModel.find({ grp: /^dszn_/, subtype: 'start' });
+
+    const unfinishedActions = [];
+
+    for (const doc of allStarts) {
+
+        const lastAction = await StatisticsModel.find({ ssoid: op.get(doc, '_doc.ssoid'), ymdh: op.get(doc, '_doc.ymdh')}).sort({ ts: -1 }).limit(1);
+
+        if (op.get(lastAction, '0._doc.subtype') !== 'send') {
+            unfinishedActions.push(Object.assign(op.get(lastAction, '0._doc'), {
+                timeStart: moment(op.get(doc, '_doc.ts')).format("DD-MM-YYYY HH:mm:ss"),
+                timeStop: moment(op.get(lastAction, '0._doc.ts')).format("DD-MM-YYYY HH:mm:ss")
+            }));
+        }
+
+    }
+
+    return res.json({
+        success: true,
+        result: unfinishedActions
+    });
+};
+
+
+export const top5 = async (req, res) => {
+
+
+    const top5 = await StatisticsModel.aggregate([{$group: {_id: "$formid", n:{$sum: 1}}}]).sort({n: -1}).limit(5);
+
+
+    return res.json({
+        success: true,
+        result: top5
+    });
+};

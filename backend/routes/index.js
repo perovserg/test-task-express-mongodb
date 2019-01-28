@@ -8,4 +8,8 @@ export default (app) => {
 
     app.get('/usedForms', controllers.usedForms);
 
+    app.get('/unfinishedForms', controllers.unfinishedForms);
+
+    app.get('/top5', controllers.top5);
+
 }
