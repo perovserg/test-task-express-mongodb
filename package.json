@@ -1,26 +1,24 @@
 {
-  "name": "test-task-luxost",
+  "name": "test-task-express-mongodb",
   "version": "1.0.0",
-  "description": "https://github.com/revkov/NODE.JS.CSV.TEST",
-  "main": "app.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app"
+    "deps": "npm i && concurrently \"cd backend && npm i\" \"cd client && npm i\"",
+    "start": "concurrently \"cd backend && node app.js\" \"cd client && npm start\""
   },
-  "author": "Perov Sergey",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/perovserg/test-task-express-mongodb.git"
+  },
+  "keywords": [],
+  "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/perovserg/test-task-express-mongodb/issues"
+  },
+  "homepage": "https://github.com/perovserg/test-task-express-mongodb#readme",
   "dependencies": {
-    "body-parser": "^1.18.3",
-    "csv-parser": "^2.1.0",
-    "dotenv": "^6.2.0",
-    "esm": "^3.1.1",
-    "express": "^4.16.4",
-    "express-async-errors": "^3.1.1",
-    "moment": "^2.24.0",
-    "mongoose": "^5.4.6",
-    "object-path": "^0.11.4",
-    "request": "^2.88.0",
-    "url": "^0.11.0",
-    "winston": "^3.1.0"
+    "concurrently": "^4.1.0"
   }
 }

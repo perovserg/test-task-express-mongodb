@@ -47,5 +47,35 @@ export const importCSV = (req, res) => {
         .on('end', () => log.info('import stage: parsing is completed'))
         );
 
-    res.send('import is started!');
+    return res.json({message: 'import is started!'});
 };
+
+export const usedForms = async (req, res) => {
+
+
+    const maxTimeDoc = await StatisticsModel.find().sort( { ts: -1 } ).limit(1);
+
+    const maxTime = op.get(maxTimeDoc, '0._doc.ts');
+
+    if (!maxTime) throw new Error(`couldn't find max time document`);
+
+    const timeForFilter = new Date();
+    timeForFilter.setTime(maxTime.getTime() - (1*60*60*1000));
+
+
+    const documents = await StatisticsModel.find({ ts: { $gt: timeForFilter } }).sort( { ts: -1 } ).select('ssoid formid ts');
+
+    const result = documents.map(doc => {
+        return {
+            ssoid: op.get(doc, '_doc.ssoid'),
+            formid: op.get(doc, '_doc.formid'),
+            ts: moment(op.get(doc, '_doc.ts')).format("DD-MM-YYYY HH:mm:ss") ,
+        }
+    });
+
+    return res.json({
+        success: true,
+        result: result
+    });
+};
+
